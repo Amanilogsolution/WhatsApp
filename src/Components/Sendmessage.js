@@ -2,19 +2,27 @@
 import './App.css'
 import * as XLSX from "xlsx";
 import Formate from '../Whatsapp_formate.xlsx'
-import { useState } from 'react'
+import React,{ useState,useEffect } from 'react'
+import {LastId,SendWhatsApp} from '../api/index'
 
 
 const Sendmessage = () => {
-
+    const[id,setId] = useState()
     const [importdata, setImportdata] = useState([]);
     const [emptyfileerror, setEmptyfileerror] = useState(false);
 
+    useEffect(()=>{
+        async function fetch(){
+        const lastId = await LastId()
+        console.log(lastId)
+        const no = parseInt(lastId.message_id)
+        setId(no+1)
+        }
+        fetch()
 
+    },[])
 
-    
-
-    const Sendmessage = () => {
+    const handleSendmessage = async() => {
         if (importdata.length === 0) {
             setEmptyfileerror(true)
         }
@@ -23,53 +31,11 @@ const Sendmessage = () => {
             setEmptyfileerror(false)
             let message = document.getElementById("message").value;
             message = message.replace(/’/g, '');
-            //   message= message.replace(/(?:\r\n|\r|\n)/g, '<br>');
             message = message.replace(/(?:\r\n|\r|\n)/g, ' ');
 
-
-            const data = {
-                importdata, message
-            }
-
-             function apicall(data) {
-                // console.log(data.importdata.map(num => (`http://192.168.146.19:3000/91${num.phone_no}/${message}/`)))
-
-                //    #########  for get last Message Id
-                 fetch('http://192.168.146.136:8009/getlastid')
-                    .then(response => response.json())
-                    .then(id => {
-                        data.message_id = id[0] + 1;
-                        console.log(data.message_id)
-                        //#################    send message to save db
-                        // fetch('http://localhost:3008/api/insertwhatsappdata', {
-                        //     method: 'POST',
-                        //     mode: 'cors',
-                        //     headers: { 'Content-Type': 'application/json' },
-                        //     body: JSON.stringify(data)
-                        // })
-                        //     .then(response => response.json())
-                        //     .then(data => {
-                        //         if (data[0] === undefined) {
-                        //             alert("error")
-                        //             window.location.reload();
-                        //         }
-                        //         else {
-                        //                 //  fetch('http://192.168.146.19:3000/919205390755/sendText/')
-                        //                 //  .then()
-                                   
-                        //             alert("send")
-                        //             window.location.reload();
-                        //         }
-                        //     })
-                        //     .catch((error) => { console.error('Error:', error); });
-
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-
-            }
-            apicall(data)
+           const result = await SendWhatsApp(importdata,message,id)
+           console.log(result)
+       
         }
 
     }
@@ -139,7 +105,7 @@ const Sendmessage = () => {
                     </div>
                     <br />
 
-                    <button style={{ float: "right" }} onClick={Sendmessage}>
+                    <button style={{ float: "right" }} onClick={handleSendmessage}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                         </svg>
