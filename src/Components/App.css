@@ -10,23 +10,23 @@
 
 }
 
-h1 {
+.h1 {
     font-size: 30px;
     margin-top: 0;
     padding: 0;
     color: rgb(0, 255, 0);
 }
 
-a {
+.a {
     text-decoration: none;
     color: #fff;
 }
 
-a svg {
+.a svg {
     font-weight: 700;
 }
 
-a:hover {
+.a:hover {
     color: red;
 }
 
@@ -57,7 +57,7 @@ textarea {
     width: 100%;
 }
 
-button {
+.button {
     height: 50px;
     width: 120px;
     background: green;

@@ -2,33 +2,28 @@
 import './App.css'
 import * as XLSX from "xlsx";
 import Formate from '../Whatsapp_formate.xlsx'
-import React,{ useState,useEffect } from 'react'
-import {LastId,SendWhatsApp} from '../api/index'
+import React, { useState, useEffect } from 'react'
+import { LastId, SendWhatsApp, SendWhatsAppMessage } from '../api/index'
 
 
 const Sendmessage = () => {
-    const[id,setId] = useState()
+    const [id, setId] = useState()
     const [importdata, setImportdata] = useState([]);
     const [emptyfileerror, setEmptyfileerror] = useState(false);
+    const [numlength,setNumlength]= useState(0);
 
-    useEffect(()=>{
-        async function fetch(){
-        const lastId = await LastId()
-        console.log(lastId)
-        const no = parseInt(lastId.message_id)
-        setId(no+1)
+    useEffect(() => {
+        async function fetch() {
+            const lastId = await LastId()
+            console.log(lastId)
+            const no = parseInt(lastId.message_id)
+            setId(no + 1)
         }
         fetch()
 
-    },[])
+    }, [])
 
-<<<<<<< HEAD
-
-
-    const Sendmessage = () => {
-=======
-    const handleSendmessage = async() => {
->>>>>>> a295ba4c68531779fe1e67f549b787311b30519c
+    const handleSendmessage = async () => {
         if (importdata.length === 0) {
             setEmptyfileerror(true)
         }
@@ -39,9 +34,15 @@ const Sendmessage = () => {
             message = message.replace(/’/g, '');
             message = message.replace(/(?:\r\n|\r|\n)/g, ' ');
 
-           const result = await SendWhatsApp(importdata,message,id)
-           console.log(result)
-       
+            // const result = await SendWhatsApp(importdata, message, id)
+            const obgval = {
+                "text": "just for testing......",
+                "sendLinkPreview": false
+            }
+            const result2 = importdata.map(item => SendWhatsAppMessage(item.phone_no, obgval))
+            console.log(result2)
+            // console.log(result)
+
         }
 
     }
@@ -60,6 +61,8 @@ const Sendmessage = () => {
             data = data.replace(/,/g, ' ')
             data = data.replace(/"/g, '')
             data = data.replace(/’/g, '')
+          
+           
             var lines = data.split("\n");
             var result = [];
             var headers = lines[0].split(",");
@@ -71,12 +74,23 @@ const Sendmessage = () => {
                 }
                 result.push(obj);
             }
+            // console.log(result)
             setImportdata(result);
             if (importdata.length === 0) { }
             else {
-                const array = JSON.stringify(importdata)
-                const datas = JSON.parse(array)
-                setImportdata(datas);
+                
+                // importdata.map(item=>(item.phone_no.length>0)?setNumlength(numlength++))
+                if(numlength > 0){
+                    alert("Invalid number")
+                }
+                else{
+                    const array = JSON.stringify(importdata)
+                    const datas = JSON.parse(array)
+                    setImportdata(datas);
+                    // console.log(result)
+
+                }
+             
             }
         };
         reader.readAsBinaryString(file);
@@ -86,12 +100,12 @@ const Sendmessage = () => {
         <>
             <div className="container" >
                 <div className="box">
-                    <h1>Send Whatsapp Message</h1>
+                    <h1 className>Send Whatsapp Message</h1>
                     <div>
                         <label htmlFor=""><b>Select the excel file :-</b></label><br />  <br />
 
                         <input type="file" onChange={onChange} accept=".xlsx" />
-                        <a href={Formate} download>
+                        <a className='a' href={Formate} download>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
@@ -110,7 +124,7 @@ const Sendmessage = () => {
                     </div>
                     <br />
 
-                    <button style={{ float: "right" }} onClick={handleSendmessage}>
+                    <button className="button" style={{ float: "right" }} onClick={handleSendmessage}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                         </svg>
