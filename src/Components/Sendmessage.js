@@ -12,7 +12,7 @@ const Sendmessage = () => {
 
 
 
-    
+
 
     const Sendmessage = () => {
         if (importdata.length === 0) {
@@ -106,7 +106,6 @@ const Sendmessage = () => {
                 const datas = JSON.parse(array)
                 setImportdata(datas);
             }
-
         };
         reader.readAsBinaryString(file);
     };
