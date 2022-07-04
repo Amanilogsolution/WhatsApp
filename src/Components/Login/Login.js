@@ -1,10 +1,27 @@
 import './Login.css'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {UserLogin} from '../../api/index'
 
 
 
 function Login() {
-    const [toogleicon, setToogleicon] = useState(false);
+    const [toogleicon, setToogleicon] = useState(true);
+
+    const handleClick =async(e)=>{
+        e.preventDefault();
+        const userId = document.getElementById('Username').value;
+        const userpassword = document.getElementById('Password').value
+        console.log(userId,userpassword)
+        const result = await UserLogin(userId,userpassword)
+        console.log(userId===result.user_id)
+        if(userId===result.user_id){
+            localStorage.setItem("userID",result.user_id)
+            window.location.href="/Sendmessage"
+        }
+        else{
+            alert("Invalid User")
+        }
+    }
 
     const handletoggle = () => {
         setToogleicon(!toogleicon)
@@ -18,7 +35,7 @@ function Login() {
                     <form>
                         <div className='row'>
                             <label htmlFor="Username"><b>UserName </b></label><br />
-                            <input className="inputbox" type="text" id="Username" placeholder="UserName" />
+                            <input className="inputbox" type="text" id="Username" placeholder="User Name" />
                         </div>
                         <div className='row'>
                             <label htmlFor="Password" className="lablePass"><b>Password</b></label>
@@ -30,10 +47,8 @@ function Login() {
                                     visibility_off
                                 </span>
                             }
-
-
                         </div>
-                        <button className="submitbtn"><b>Submit</b></button>
+                        <button className="submitbtn" onClick={handleClick}><b>Submit</b></button>
                     </form>
                 </div>
             </div>
