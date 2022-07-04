@@ -20,7 +20,7 @@ const Sendmessage = () => {
         fetch()
     },[])
 
-    const handleSendmessage = async() => {
+    const handleSendmessage = async () => {
         if (importdata.length === 0) {
             setEmptyfileerror(true)
         }
@@ -53,6 +53,8 @@ const Sendmessage = () => {
             data = data.replace(/,/g, ' ')
             data = data.replace(/"/g, '')
             data = data.replace(/’/g, '')
+          
+           
             var lines = data.split("\n");
             var result = [];
             var headers = lines[0].split(",");
@@ -64,14 +66,24 @@ const Sendmessage = () => {
                 }
                 result.push(obj);
             }
+            // console.log(result)
             setImportdata(result);
             if (importdata.length === 0) { }
             else {
-                const array = JSON.stringify(importdata)
-                const datas = JSON.parse(array)
-                setImportdata(datas);
-            }
+                
+                // importdata.map(item=>(item.phone_no.length>0)?setNumlength(numlength++))
+                // if(numlength > 0){
+                //     alert("Invalid number")
+                // }
+                // else{
+                    const array = JSON.stringify(importdata)
+                    const datas = JSON.parse(array)
+                    setImportdata(datas);
+                    // console.log(result)
 
+                // }
+             
+            }
         };
         reader.readAsBinaryString(file);
     };
@@ -80,7 +92,7 @@ const Sendmessage = () => {
         <>
             <div className="container" >
                 <div className="box">
-                    <h1>Send Whatsapp Message</h1>
+                    <h1 className>Send Whatsapp Message</h1>
                     <div>
                         <label htmlFor=""><b>Select the excel file :-</b></label><br />  <br />
 
@@ -106,7 +118,7 @@ const Sendmessage = () => {
                     </div>
                     <br />
 
-                    <button style={{ float: "right" }} onClick={handleSendmessage}>
+                    <button className="button" style={{ float: "right" }} onClick={handleSendmessage}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                         </svg>
