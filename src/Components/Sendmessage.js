@@ -3,23 +3,21 @@ import './App.css'
 import * as XLSX from "xlsx";
 import Formate from '../Whatsapp_formate.xlsx'
 import React,{ useState,useEffect } from 'react'
-import {LastId,SendWhatsApp} from '../api/index'
+import {LastId,SendWhatsApp,SendMessage} from '../api/index'
 
 
 const Sendmessage = () => {
-    const[id,setId] = useState()
+    const[id,setId] = useState();
     const [importdata, setImportdata] = useState([]);
     const [emptyfileerror, setEmptyfileerror] = useState(false);
 
     useEffect(()=>{
         async function fetch(){
         const lastId = await LastId()
-        console.log(lastId)
         const no = parseInt(lastId.message_id)
         setId(no+1)
         }
         fetch()
-
     },[])
 
     const handleSendmessage = async() => {
@@ -27,15 +25,16 @@ const Sendmessage = () => {
             setEmptyfileerror(true)
         }
         else {
-
             setEmptyfileerror(false)
             let message = document.getElementById("message").value;
             message = message.replace(/’/g, '');
             message = message.replace(/(?:\r\n|\r|\n)/g, ' ');
-
            const result = await SendWhatsApp(importdata,message,id)
-           console.log(result)
-       
+           const result1 = await SendMessage(importdata,message)
+           console.log(result1)
+           if (result){
+            window.location.reload()
+           }       
         }
 
     }
@@ -85,7 +84,9 @@ const Sendmessage = () => {
                     <div>
                         <label htmlFor=""><b>Select the excel file :-</b></label><br />  <br />
 
-                        <input type="file" onChange={onChange} accept=".xlsx" />
+                        <input type="file" id="clicked" style={{display:"none"}} onChange={onChange} accept=".xlsx" />
+                        <br/>
+                        <a href="#" onClick={(e)=>{e.preventDefault();document.getElementById('clicked').click()}}>Upload Excel File</a> &nbsp; &nbsp;
                         <a href={Formate} download>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
