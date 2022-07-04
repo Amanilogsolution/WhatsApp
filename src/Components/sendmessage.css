@@ -2,10 +2,10 @@
     font-size: 18px;
 }
 
-.container {
+.containersendmess {
     height: 100vh;
     width: 100vw;
-    background-image: url("../bg.png");
+    background-image: url("../image/bg.png");
     /* background: rgba(0,0,0,0.4); */
 
 }

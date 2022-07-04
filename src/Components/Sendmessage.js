@@ -1,5 +1,5 @@
 
-import './App.css'
+import './sendmessage.css'
 import * as XLSX from "xlsx";
 import Formate from '../Whatsapp_formate.xlsx'
 import React,{ useState,useEffect } from 'react'
@@ -90,7 +90,7 @@ const Sendmessage = () => {
 
     return (
         <>
-            <div className="container" >
+            <div className="containersendmess" >
                 <div className="box">
                     <h1 className>Send Whatsapp Message</h1>
                     <div>

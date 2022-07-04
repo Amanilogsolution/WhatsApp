@@ -12,6 +12,6 @@ export const SendWhatsApp = async (datas,message,message_id)=>{
 
 export const SendMessage = async (data,message,)=>{
     console.log(data,message)
-    const url = `http://192.168.146.136:8009/sendmessage`
+    const url = `http://localhost:8009/sendmessage`
     return axios.post(url,{data,message}).then(response => response.data).catch(error => console.log(error));
 }
