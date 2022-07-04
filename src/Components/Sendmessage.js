@@ -30,11 +30,15 @@ const Sendmessage = () => {
             message = message.replace(/’/g, '');
             message = message.replace(/(?:\r\n|\r|\n)/g, ' ');
            const result = await SendWhatsApp(importdata,message,id)
+           if(result==='Added'){
            const result1 = await SendMessage(importdata,message)
            console.log(result1)
-           if (result){
+           if (result1){
             window.location.reload()
-           }       
+           }   
+           }    else{
+            alert("Server Error")
+           }
         }
 
     }
@@ -58,7 +62,7 @@ const Sendmessage = () => {
             var lines = data.split("\n");
             var result = [];
             var headers = lines[0].split(",");
-            for (var i = 1; i < lines.length - 1; i++) {
+            for (var i = 1; i <= lines.length - 1; i++) {
                 var obj = {};
                 var currentline = lines[i].split(",");
                 for (var j = 0; j < headers.length; j++) {
@@ -66,7 +70,6 @@ const Sendmessage = () => {
                 }
                 result.push(obj);
             }
-            // console.log(result)
             setImportdata(result);
             if (importdata.length === 0) { }
             else {
@@ -79,7 +82,7 @@ const Sendmessage = () => {
                     const array = JSON.stringify(importdata)
                     const datas = JSON.parse(array)
                     setImportdata(datas);
-                    // console.log(result)
+                //     console.log(result)
 
                 // }
              
