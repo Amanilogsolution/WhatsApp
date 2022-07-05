@@ -16,7 +16,7 @@ function Login() {
         console.log(userId===result.user_id)
         if(userId===result.user_id){
             localStorage.setItem("userID",result.user_id)
-            window.location.href="/Sendmessage"
+            window.location.href="/Dashboard"
         }
         else{
             alert("Invalid User")
@@ -31,7 +31,7 @@ function Login() {
             <div className="containerdiv" >
 
                 <div className="login-div">
-                    <h1 className="heading"><span>Login</span></h1>
+                    <h1 className="login-heading"><span>Login</span></h1>
                     <form>
                         <div className='row'>
                             <label htmlFor="Username"><b>UserName </b></label><br />
@@ -39,12 +39,12 @@ function Login() {
                         </div>
                         <div className='row'>
                             <label htmlFor="Password" className="lablePass"><b>Password</b></label>
-                            <input className="inputbox2" type={toogleicon ? "password" : "text"} id="Password" placeholder="Password" />
+                            <input className="inputbox inputbox2" type={toogleicon ? "password" : "text"} id="Password" placeholder="Password" />
                             {
                                 toogleicon ? <span className="material-symbols-outlined eye-icon" onClick={handletoggle}>
-                                    visibility
-                                </span> : <span className="material-symbols-outlined eye-icon" onClick={handletoggle}>
                                     visibility_off
+                                </span> : <span className="material-symbols-outlined eye-icon" onClick={handletoggle}>
+                                    visibility
                                 </span>
                             }
                         </div>

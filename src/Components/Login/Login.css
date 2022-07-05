@@ -12,11 +12,6 @@
     height: 420px;
     width: 470px;
     background: #eee;
-    /* background: rgba(0, 113, 26, 0.775); */
-
-    /* background: rgb(43, 129, 86); */
-    /* background: linear-gradient(-90Deg,rgb(43, 106, 252),rgb(142, 86, 255)); */
-
     border-radius: 15px;
     box-shadow: 5px 5px 10px gray;
     border-top: 7px solid rgb(228, 50, 50);
@@ -32,17 +27,19 @@
     margin-top: 20px;
 }
 
-.heading {
+.login-heading {
     text-align: center;
 }
-.heading span{
+.login-heading span{
     font-size: 30px;
+
     border-bottom: 3px solid blue;
 }
 .inputbox {
-    height: 25px;
+    height: 35px;
     width: 95%;
-    margin-top: 10px;
+    margin-top: 10px;   
+    margin-left: 5px;
     padding: 5px;
     border: none;
     border-bottom: 2px solid black;
@@ -50,18 +47,18 @@
 }
 
 .inputbox2 {
-    height: 25px;
     width: 90%;
-    margin-top: 10px;
-    padding: 5px;
-    border: none;
-    border-bottom: 2px solid black;
-    background: transparent;
+    float:  left;
 }
 
 .eye-icon {
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 10px;
+    float:  right;
+    width: 30px;
+    height: 22px;
+    padding: 0;
+
 }
 
 .submitbtn {

@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from '../Nav'
-import Footer from '../Footer'
+import Footer from '../Footer';
+import './card.css'
 
 export default function Card() {
     return (
         <>
+        <div className="maincarddiv" style={{ }}>
         <Navbar/>
         <div className='container my-4 ' >
         <div className='row' style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -45,6 +47,7 @@ export default function Card() {
             </div>
         </div>
         <Footer/>
+        </div>
         </>
     )
 }

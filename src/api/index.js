@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const UserLogin = async (userId,userpassword)=>{
     console.log('Login',userId,userpassword)
-    const url = `http://localhost:8009/login`
+    const url = `http://192.168.146.136:8009/login`
     return axios.post(url,{userId,userpassword}).then(response => response.data).catch(error => console.log(error));
 }
 
@@ -23,6 +23,6 @@ export const SendMessage = async (data,message)=>{
 }
 export const SendImage = async (data,message)=>{
     console.log('WhatsApp',data,message)
-    const url = `http://localhost:8009/sendimage`
+    const url = `http://192.168.146.136:8009/sendimage`
     return axios.post(url,data).then(response => response.data).catch(error => console.log(error));
 }

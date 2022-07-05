@@ -15,12 +15,12 @@ export default function Nav() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                                <a className="nav-link active" aria-current="page" href="/Dashboard">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/">Link</a>
+                                <a className="nav-link " href="/Send-Message">SendMessage</a>
                             </li>
-                            <li className="nav-item dropdown">
+                            {/* <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Dropdown
                                 </a>
@@ -30,13 +30,12 @@ export default function Nav() {
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><a className="dropdown-item" href="/">Something else here</a></li>
                                 </ul>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled">Disabled</a>
-                            </li>
+                            </li> */}
+                           
                         </ul>
                         <form className="d-flex" role="search">
-                          <button className="btn btn-outline-info btn-sm" type="submit">Log Out</button>
+                          <button className="btn btn-outline-info btn-sm" type="submit"
+                           onClick={(e) => { e.preventDefault(); window.location.href = "/"; localStorage.clear() }}>Log Out</button>
                         </form>
                     </div>
                 </div>
